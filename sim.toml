@@ -1,2 +1,5 @@
 [app]
-name = "univ4-bench-idx"
+name = "uniswap-substreams-idx"
+
+[listeners]
+codegen_naming_convention = "abi_prefix"
