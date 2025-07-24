@@ -13,18 +13,18 @@ contract PoolManagerListener is
     PoolManager$OnProtocolFeeUpdatedEvent
 {
     // Event declarations
-    event Initialize(UniswapV4Initialize);
-    event Swap(UniswapV4Swap);
-    event ModifyLiquidity(UniswapV4ModifyLiquidity);
-    event Donate(UniswapV4Donate);
-    event ProtocolFeeControllerUpdated(UniswapV4ProtocolFeeControllerUpdated);
-    event ProtocolFeeUpdated(UniswapV4ProtocolFeeUpdated);
+    event UniswapV4Initialize(UniswapV4InitializeData);
+    event UniswapV4Swap(UniswapV4SwapData);
+    event UniswapV4ModifyLiquidity(UniswapV4ModifyLiquidityData);
+    event UniswapV4Donate(UniswapV4DonateData);
+    event UniswapV4ProtocolFeeControllerUpdated(UniswapV4ProtocolFeeControllerUpdatedData);
+    event UniswapV4ProtocolFeeUpdated(UniswapV4ProtocolFeeUpdatedData);
 
     function PoolManager$onInitializeEvent(EventContext memory ctx, PoolManager$InitializeEventParams memory params)
         external
         override
     {
-        UniswapV4Initialize memory eventData = UniswapV4Initialize({
+        UniswapV4InitializeData memory eventData = UniswapV4InitializeData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -39,14 +39,14 @@ contract PoolManagerListener is
             tick: params.tick
         });
 
-        emit Initialize(eventData);
+        emit UniswapV4Initialize(eventData);
     }
 
     function PoolManager$onSwapEvent(EventContext memory ctx, PoolManager$SwapEventParams memory params)
         external
         override
     {
-        UniswapV4Swap memory eventData = UniswapV4Swap({
+        UniswapV4SwapData memory eventData = UniswapV4SwapData({
             txHash: ctx.txn.hash,
             txFrom: tx.origin,
             txTo: address(0),
@@ -63,14 +63,14 @@ contract PoolManagerListener is
             fee: params.fee
         });
 
-        emit Swap(eventData);
+        emit UniswapV4Swap(eventData);
     }
 
     function PoolManager$onModifyLiquidityEvent(
         EventContext memory ctx,
         PoolManager$ModifyLiquidityEventParams memory params
     ) external override {
-        UniswapV4ModifyLiquidity memory eventData = UniswapV4ModifyLiquidity({
+        UniswapV4ModifyLiquidityData memory eventData = UniswapV4ModifyLiquidityData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -83,14 +83,14 @@ contract PoolManagerListener is
             salt: params.salt
         });
 
-        emit ModifyLiquidity(eventData);
+        emit UniswapV4ModifyLiquidity(eventData);
     }
 
     function PoolManager$onDonateEvent(EventContext memory ctx, PoolManager$DonateEventParams memory params)
         external
         override
     {
-        UniswapV4Donate memory eventData = UniswapV4Donate({
+        UniswapV4DonateData memory eventData = UniswapV4DonateData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -101,14 +101,14 @@ contract PoolManagerListener is
             amount1: params.amount1
         });
 
-        emit Donate(eventData);
+        emit UniswapV4Donate(eventData);
     }
 
     function PoolManager$onProtocolFeeControllerUpdatedEvent(
         EventContext memory ctx,
         PoolManager$ProtocolFeeControllerUpdatedEventParams memory params
     ) external override {
-        UniswapV4ProtocolFeeControllerUpdated memory eventData = UniswapV4ProtocolFeeControllerUpdated({
+        UniswapV4ProtocolFeeControllerUpdatedData memory eventData = UniswapV4ProtocolFeeControllerUpdatedData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -116,14 +116,14 @@ contract PoolManagerListener is
             protocolFeeController: params.protocolFeeController
         });
 
-        emit ProtocolFeeControllerUpdated(eventData);
+        emit UniswapV4ProtocolFeeControllerUpdated(eventData);
     }
 
     function PoolManager$onProtocolFeeUpdatedEvent(
         EventContext memory ctx,
         PoolManager$ProtocolFeeUpdatedEventParams memory params
     ) external override {
-        UniswapV4ProtocolFeeUpdated memory eventData = UniswapV4ProtocolFeeUpdated({
+        UniswapV4ProtocolFeeUpdatedData memory eventData = UniswapV4ProtocolFeeUpdatedData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -132,6 +132,6 @@ contract PoolManagerListener is
             protocolFee: params.protocolFee
         });
 
-        emit ProtocolFeeUpdated(eventData);
+        emit UniswapV4ProtocolFeeUpdated(eventData);
     }
 }

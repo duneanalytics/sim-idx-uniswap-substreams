@@ -13,10 +13,10 @@ contract UniswapV2PairListener is
     UniswapV2Pair$OnBurnEvent,
     UniswapV2Pair$OnSwapEvent
 {
-    event Sync(UniswapV2PairSync);
-    event Mint(UniswapV2PairMint);
-    event Burn(UniswapV2PairBurn);
-    event Swap(UniswapV2PairSwap);
+    event UniswapV2PairSync(UniswapV2PairSyncData);
+    event UniswapV2PairMint(UniswapV2PairMintData);
+    event UniswapV2PairBurn(UniswapV2PairBurnData);
+    event UniswapV2PairSwap(UniswapV2PairSwapData);
 
     modifier onlyOfficialPair(address pair) {
         if (IUniswapV2Pair(pair).factory() != getUniswapV2Factory(block.chainid)) {
@@ -30,7 +30,7 @@ contract UniswapV2PairListener is
         override
         onlyOfficialPair(ctx.txn.call.callee)
     {
-        UniswapV2PairSync memory eventData = UniswapV2PairSync({
+        UniswapV2PairSyncData memory eventData = UniswapV2PairSyncData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -39,7 +39,7 @@ contract UniswapV2PairListener is
             reserve1: params.reserve1
         });
 
-        emit Sync(eventData);
+        emit UniswapV2PairSync(eventData);
     }
 
     function UniswapV2Pair$onMintEvent(EventContext memory ctx, UniswapV2Pair$MintEventParams memory params)
@@ -47,7 +47,7 @@ contract UniswapV2PairListener is
         override
         onlyOfficialPair(ctx.txn.call.callee)
     {
-        UniswapV2PairMint memory eventData = UniswapV2PairMint({
+        UniswapV2PairMintData memory eventData = UniswapV2PairMintData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -57,7 +57,7 @@ contract UniswapV2PairListener is
             amount1: params.amount1
         });
 
-        emit Mint(eventData);
+        emit UniswapV2PairMint(eventData);
     }
 
     function UniswapV2Pair$onBurnEvent(EventContext memory ctx, UniswapV2Pair$BurnEventParams memory params)
@@ -65,7 +65,7 @@ contract UniswapV2PairListener is
         override
         onlyOfficialPair(ctx.txn.call.callee)
     {
-        UniswapV2PairBurn memory eventData = UniswapV2PairBurn({
+        UniswapV2PairBurnData memory eventData = UniswapV2PairBurnData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -76,7 +76,7 @@ contract UniswapV2PairListener is
             to: params.to
         });
 
-        emit Burn(eventData);
+        emit UniswapV2PairBurn(eventData);
     }
 
     function UniswapV2Pair$onSwapEvent(EventContext memory ctx, UniswapV2Pair$SwapEventParams memory params)
@@ -84,7 +84,7 @@ contract UniswapV2PairListener is
         override
         onlyOfficialPair(ctx.txn.call.callee)
     {
-        UniswapV2PairSwap memory eventData = UniswapV2PairSwap({
+        UniswapV2PairSwapData memory eventData = UniswapV2PairSwapData({
             txHash: ctx.txn.hash,
             txFrom: tx.origin,
             txTo: address(0),
@@ -99,6 +99,6 @@ contract UniswapV2PairListener is
             to: params.to
         });
 
-        emit Swap(eventData);
+        emit UniswapV2PairSwap(eventData);
     }
 }

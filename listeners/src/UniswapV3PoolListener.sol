@@ -18,15 +18,15 @@ contract UniswapV3PoolListener is
     UniswapV3Pool$OnSetFeeProtocolEvent,
     UniswapV3Pool$OnCollectProtocolEvent
 {
-    event Swap(UniswapV3PoolSwap);
-    event Mint(UniswapV3PoolMint);
-    event Burn(UniswapV3PoolBurn);
-    event Initialize(UniswapV3PoolInitialize);
-    event Collect(UniswapV3PoolCollect);
-    event Flash(UniswapV3PoolFlash);
-    event IncreaseObservationCardinalityNext(UniswapV3PoolIncreaseObservationCardinalityNext);
-    event SetFeeProtocol(UniswapV3PoolSetFeeProtocol);
-    event CollectProtocol(UniswapV3PoolCollectProtocol);
+    event UniswapV3PoolSwap(UniswapV3PoolSwapData);
+    event UniswapV3PoolMint(UniswapV3PoolMintData);
+    event UniswapV3PoolBurn(UniswapV3PoolBurnData);
+    event UniswapV3PoolInitialize(UniswapV3PoolInitializeData);
+    event UniswapV3PoolCollect(UniswapV3PoolCollectData);
+    event UniswapV3PoolFlash(UniswapV3PoolFlashData);
+    event UniswapV3PoolIncreaseObservationCardinalityNext(UniswapV3PoolIncreaseObservationCardinalityNextData);
+    event UniswapV3PoolSetFeeProtocol(UniswapV3PoolSetFeeProtocolData);
+    event UniswapV3PoolCollectProtocol(UniswapV3PoolCollectProtocolData);
 
     modifier onlyOfficialPool(address pair) {
         if (IUniswapV3Pool(pair).factory() != getUniswapV3Factory(block.chainid)) {
@@ -40,7 +40,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolSwap memory eventData = UniswapV3PoolSwap({
+        UniswapV3PoolSwapData memory eventData = UniswapV3PoolSwapData({
             txHash: ctx.txn.hash,
             txFrom: tx.origin,
             txTo: address(0),
@@ -56,7 +56,7 @@ contract UniswapV3PoolListener is
             tick: params.tick
         });
 
-        emit Swap(eventData);
+        emit UniswapV3PoolSwap(eventData);
     }
 
     function UniswapV3Pool$onMintEvent(EventContext memory ctx, UniswapV3Pool$MintEventParams memory params)
@@ -64,7 +64,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolMint memory eventData = UniswapV3PoolMint({
+        UniswapV3PoolMintData memory eventData = UniswapV3PoolMintData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -78,7 +78,7 @@ contract UniswapV3PoolListener is
             amount1: params.amount1
         });
 
-        emit Mint(eventData);
+        emit UniswapV3PoolMint(eventData);
     }
 
     function UniswapV3Pool$onBurnEvent(EventContext memory ctx, UniswapV3Pool$BurnEventParams memory params)
@@ -86,7 +86,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolBurn memory eventData = UniswapV3PoolBurn({
+        UniswapV3PoolBurnData memory eventData = UniswapV3PoolBurnData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -99,7 +99,7 @@ contract UniswapV3PoolListener is
             tickUpper: params.tickUpper
         });
 
-        emit Burn(eventData);
+        emit UniswapV3PoolBurn(eventData);
     }
 
     function UniswapV3Pool$onInitializeEvent(EventContext memory ctx, UniswapV3Pool$InitializeEventParams memory params)
@@ -107,7 +107,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolInitialize memory eventData = UniswapV3PoolInitialize({
+        UniswapV3PoolInitializeData memory eventData = UniswapV3PoolInitializeData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -116,7 +116,7 @@ contract UniswapV3PoolListener is
             tick: params.tick
         });
 
-        emit Initialize(eventData);
+        emit UniswapV3PoolInitialize(eventData);
     }
 
     function UniswapV3Pool$onCollectEvent(EventContext memory ctx, UniswapV3Pool$CollectEventParams memory params)
@@ -124,7 +124,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolCollect memory eventData = UniswapV3PoolCollect({
+        UniswapV3PoolCollectData memory eventData = UniswapV3PoolCollectData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -137,7 +137,7 @@ contract UniswapV3PoolListener is
             tickUpper: params.tickUpper
         });
 
-        emit Collect(eventData);
+        emit UniswapV3PoolCollect(eventData);
     }
 
     function UniswapV3Pool$onFlashEvent(EventContext memory ctx, UniswapV3Pool$FlashEventParams memory params)
@@ -145,7 +145,7 @@ contract UniswapV3PoolListener is
         override
         onlyOfficialPool(ctx.txn.call.callee)
     {
-        UniswapV3PoolFlash memory eventData = UniswapV3PoolFlash({
+        UniswapV3PoolFlashData memory eventData = UniswapV3PoolFlashData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -158,15 +158,15 @@ contract UniswapV3PoolListener is
             paid1: params.paid1
         });
 
-        emit Flash(eventData);
+        emit UniswapV3PoolFlash(eventData);
     }
 
     function UniswapV3Pool$onIncreaseObservationCardinalityNextEvent(
         EventContext memory ctx,
         UniswapV3Pool$IncreaseObservationCardinalityNextEventParams memory params
     ) external override onlyOfficialPool(ctx.txn.call.callee) {
-        UniswapV3PoolIncreaseObservationCardinalityNext memory eventData =
-        UniswapV3PoolIncreaseObservationCardinalityNext({
+        UniswapV3PoolIncreaseObservationCardinalityNextData memory eventData =
+        UniswapV3PoolIncreaseObservationCardinalityNextData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -175,14 +175,14 @@ contract UniswapV3PoolListener is
             observationCardinalityNextNew: params.observationCardinalityNextNew
         });
 
-        emit IncreaseObservationCardinalityNext(eventData);
+        emit UniswapV3PoolIncreaseObservationCardinalityNext(eventData);
     }
 
     function UniswapV3Pool$onSetFeeProtocolEvent(
         EventContext memory ctx,
         UniswapV3Pool$SetFeeProtocolEventParams memory params
     ) external override onlyOfficialPool(ctx.txn.call.callee) {
-        UniswapV3PoolSetFeeProtocol memory eventData = UniswapV3PoolSetFeeProtocol({
+        UniswapV3PoolSetFeeProtocolData memory eventData = UniswapV3PoolSetFeeProtocolData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -193,14 +193,14 @@ contract UniswapV3PoolListener is
             feeProtocol1New: params.feeProtocol1New
         });
 
-        emit SetFeeProtocol(eventData);
+        emit UniswapV3PoolSetFeeProtocol(eventData);
     }
 
     function UniswapV3Pool$onCollectProtocolEvent(
         EventContext memory ctx,
         UniswapV3Pool$CollectProtocolEventParams memory params
     ) external override onlyOfficialPool(ctx.txn.call.callee) {
-        UniswapV3PoolCollectProtocol memory eventData = UniswapV3PoolCollectProtocol({
+        UniswapV3PoolCollectProtocolData memory eventData = UniswapV3PoolCollectProtocolData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -211,6 +211,6 @@ contract UniswapV3PoolListener is
             amount1: params.amount1
         });
 
-        emit CollectProtocol(eventData);
+        emit UniswapV3PoolCollectProtocol(eventData);
     }
 }
