@@ -3,11 +3,141 @@ import { pgEnum, pgTable as table } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 import { db, types } from "@duneanalytics/sim-idx";
 
-export const poolCreated = table("pool_created", {
-  chainId: db.uint64('chain_id'),
+export const burn = table("burn", {
+  txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
-  pool: db.address('pool'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  owner: db.address('owner'),
+  tickLower: db.int24('tick_lower'),
+  tickUpper: db.int24('tick_upper'),
+  amount: db.uint128('amount'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+})
+
+export const collect = table("collect", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  owner: db.address('owner'),
+  recipient: db.address('recipient'),
+  tickLower: db.int24('tick_lower'),
+  tickUpper: db.int24('tick_upper'),
+  amount0: db.uint128('amount0'),
+  amount1: db.uint128('amount1'),
+})
+
+export const collectProtocol = table("collect_protocol", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  recipient: db.address('recipient'),
+  amount0: db.uint128('amount0'),
+  amount1: db.uint128('amount1'),
+})
+
+export const feeAmountEnabled = table("fee_amount_enabled", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  fee: db.uint24('fee'),
+  tickSpacing: db.int24('tick_spacing'),
+})
+
+export const flash = table("flash", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  recipient: db.address('recipient'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+  paid0: db.uint256('paid0'),
+  paid1: db.uint256('paid1'),
+})
+
+export const increaseObservationCardinalityNext = table("increase_observation_cardinality_next", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  observationCardinalityNextOld: db.uint16('observation_cardinality_next_old'),
+  observationCardinalityNextNew: db.uint16('observation_cardinality_next_new'),
+})
+
+export const initialize = table("initialize", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sqrtPriceX96: db.uint160('sqrt_price_x96'),
+  tick: db.int24('tick'),
+})
+
+export const mint = table("mint", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  owner: db.address('owner'),
+  tickLower: db.int24('tick_lower'),
+  tickUpper: db.int24('tick_upper'),
+  amount: db.uint128('amount'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+})
+
+export const ownerChanged = table("owner_changed", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  oldOwner: db.address('old_owner'),
+  newOwner: db.address('new_owner'),
+})
+
+export const poolCreated = table("pool_created", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
   token0: db.address('token0'),
   token1: db.address('token1'),
   fee: db.uint24('fee'),
+  tickSpacing: db.int24('tick_spacing'),
+  pool: db.address('pool'),
+})
+
+export const setFeeProtocol = table("set_fee_protocol", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  feeProtocol0Old: db.uint8('fee_protocol0_old'),
+  feeProtocol1Old: db.uint8('fee_protocol1_old'),
+  feeProtocol0New: db.uint8('fee_protocol0_new'),
+  feeProtocol1New: db.uint8('fee_protocol1_new'),
+})
+
+export const swap = table("swap", {
+  txHash: db.bytes32('tx_hash'),
+  txFrom: db.address('tx_from'),
+  txTo: db.address('tx_to'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  recipient: db.address('recipient'),
+  amount0: db.int256('amount0'),
+  amount1: db.int256('amount1'),
+  sqrtPriceX96: db.uint160('sqrt_price_x96'),
+  liquidity: db.uint128('liquidity'),
+  tick: db.int24('tick'),
 })

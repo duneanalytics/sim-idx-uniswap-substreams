@@ -2,24 +2,65 @@
 pragma solidity ^0.8.13;
 
 import "sim-idx-generated/Generated.sol";
+import "./types/UniswapV3.sol";
 
-/// Index calls to the UniswapV3Factory.createPool function on Ethereum
-/// To hook on more function calls, specify that this listener should implement that interface and follow the compiler errors.
-contract UniswapV3FactoryListener is UniswapV3Factory$OnCreatePoolFunction {
-    /// Emitted events are indexed.
-    /// To change the data which is indexed, modify the event or add more events.
-    event PoolCreated(uint64 chainId, address caller, address pool, address token0, address token1, uint24 fee);
+contract UniswapV3FactoryListener is
+    UniswapV3Factory$OnPoolCreatedEvent,
+    UniswapV3Factory$OnOwnerChangedEvent,
+    UniswapV3Factory$OnFeeAmountEnabledEvent
+{
+    event PoolCreated(UniswapV3FactoryPoolCreated);
+    event OwnerChanged(UniswapV3FactoryOwnerChanged);
+    event FeeAmountEnabled(UniswapV3FactoryFeeAmountEnabled);
 
-    /// The handler called whenever the UniswapV3Factory.createPool function is called.
-    /// Within here you write your indexing specific logic (e.g., call out to other contracts to get more information).
-    /// The only requirement for handlers is that they have the correct signature, but usually you will use generated interfaces to help write them.
-    function onCreatePoolFunction(
-        FunctionContext memory ctx,
-        UniswapV3Factory$CreatePoolFunctionInputs memory inputs,
-        UniswapV3Factory$CreatePoolFunctionOutputs memory outputs
+    function UniswapV3Factory$onPoolCreatedEvent(
+        EventContext memory ctx,
+        UniswapV3Factory$PoolCreatedEventParams memory params
     ) external override {
-        emit PoolCreated(
-            uint64(block.chainid), ctx.txn.call.callee, outputs.pool, inputs.tokenA, inputs.tokenB, inputs.fee
-        );
+        UniswapV3FactoryPoolCreated memory eventData = UniswapV3FactoryPoolCreated({
+            txHash: ctx.txn.hash,
+            caller: ctx.txn.call.callee,
+            contractAddress: ctx.txn.call.callee,
+            ordinal: 0,
+            token0: params.token0,
+            token1: params.token1,
+            fee: params.fee,
+            tickSpacing: params.tickSpacing,
+            pool: params.pool
+        });
+
+        emit PoolCreated(eventData);
+    }
+
+    function UniswapV3Factory$onOwnerChangedEvent(
+        EventContext memory ctx,
+        UniswapV3Factory$OwnerChangedEventParams memory params
+    ) external override {
+        UniswapV3FactoryOwnerChanged memory eventData = UniswapV3FactoryOwnerChanged({
+            txHash: ctx.txn.hash,
+            caller: ctx.txn.call.callee,
+            contractAddress: ctx.txn.call.callee,
+            ordinal: 0,
+            oldOwner: params.oldOwner,
+            newOwner: params.newOwner
+        });
+
+        emit OwnerChanged(eventData);
+    }
+
+    function UniswapV3Factory$onFeeAmountEnabledEvent(
+        EventContext memory ctx,
+        UniswapV3Factory$FeeAmountEnabledEventParams memory params
+    ) external override {
+        UniswapV3FactoryFeeAmountEnabled memory eventData = UniswapV3FactoryFeeAmountEnabled({
+            txHash: ctx.txn.hash,
+            caller: ctx.txn.call.callee,
+            contractAddress: ctx.txn.call.callee,
+            ordinal: 0,
+            fee: params.fee,
+            tickSpacing: params.tickSpacing
+        });
+
+        emit FeeAmountEnabled(eventData);
     }
 }
