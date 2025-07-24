@@ -9,15 +9,15 @@ contract UniswapV3FactoryListener is
     UniswapV3Factory$OnOwnerChangedEvent,
     UniswapV3Factory$OnFeeAmountEnabledEvent
 {
-    event PoolCreated(UniswapV3FactoryPoolCreated);
-    event OwnerChanged(UniswapV3FactoryOwnerChanged);
-    event FeeAmountEnabled(UniswapV3FactoryFeeAmountEnabled);
+    event UniswapV3FactoryPoolCreated(UniswapV3FactoryPoolCreatedData);
+    event UniswapV3FactoryOwnerChanged(UniswapV3FactoryOwnerChangedData);
+    event UniswapV3FactoryFeeAmountEnabled(UniswapV3FactoryFeeAmountEnabledData);
 
     function UniswapV3Factory$onPoolCreatedEvent(
         EventContext memory ctx,
         UniswapV3Factory$PoolCreatedEventParams memory params
     ) external override {
-        UniswapV3FactoryPoolCreated memory eventData = UniswapV3FactoryPoolCreated({
+        UniswapV3FactoryPoolCreatedData memory eventData = UniswapV3FactoryPoolCreatedData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -29,14 +29,14 @@ contract UniswapV3FactoryListener is
             pool: params.pool
         });
 
-        emit PoolCreated(eventData);
+        emit UniswapV3FactoryPoolCreated(eventData);
     }
 
     function UniswapV3Factory$onOwnerChangedEvent(
         EventContext memory ctx,
         UniswapV3Factory$OwnerChangedEventParams memory params
     ) external override {
-        UniswapV3FactoryOwnerChanged memory eventData = UniswapV3FactoryOwnerChanged({
+        UniswapV3FactoryOwnerChangedData memory eventData = UniswapV3FactoryOwnerChangedData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -45,14 +45,14 @@ contract UniswapV3FactoryListener is
             newOwner: params.newOwner
         });
 
-        emit OwnerChanged(eventData);
+        emit UniswapV3FactoryOwnerChanged(eventData);
     }
 
     function UniswapV3Factory$onFeeAmountEnabledEvent(
         EventContext memory ctx,
         UniswapV3Factory$FeeAmountEnabledEventParams memory params
     ) external override {
-        UniswapV3FactoryFeeAmountEnabled memory eventData = UniswapV3FactoryFeeAmountEnabled({
+        UniswapV3FactoryFeeAmountEnabledData memory eventData = UniswapV3FactoryFeeAmountEnabledData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -61,6 +61,6 @@ contract UniswapV3FactoryListener is
             tickSpacing: params.tickSpacing
         });
 
-        emit FeeAmountEnabled(eventData);
+        emit UniswapV3FactoryFeeAmountEnabled(eventData);
     }
 }

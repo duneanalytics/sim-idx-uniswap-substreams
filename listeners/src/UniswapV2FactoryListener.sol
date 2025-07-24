@@ -5,13 +5,13 @@ import "sim-idx-generated/Generated.sol";
 import "./types/UniswapV2.sol";
 
 contract UniswapV2FactoryListener is UniswapV2Factory$OnPairCreatedEvent {
-    event PairCreated(UniswapV2FactoryPairCreated);
+    event UniswapV2FactoryPairCreated(UniswapV2FactoryPairCreatedData);
 
     function UniswapV2Factory$onPairCreatedEvent(
         EventContext memory ctx,
         UniswapV2Factory$PairCreatedEventParams memory params
     ) external override {
-        UniswapV2FactoryPairCreated memory eventData = UniswapV2FactoryPairCreated({
+        UniswapV2FactoryPairCreatedData memory eventData = UniswapV2FactoryPairCreatedData({
             txHash: ctx.txn.hash,
             caller: ctx.txn.call.callee,
             contractAddress: ctx.txn.call.callee,
@@ -22,6 +22,6 @@ contract UniswapV2FactoryListener is UniswapV2Factory$OnPairCreatedEvent {
             allPairsLength: params.outArg3
         });
 
-        emit PairCreated(eventData);
+        emit UniswapV2FactoryPairCreated(eventData);
     }
 }

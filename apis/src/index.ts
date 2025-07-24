@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { burn } from "./db/schema/Listener"; // Adjust the import path as necessary
+import { uniswapV2PairBurn } from "./db/schema/Listener"; // Adjust the import path as necessary
 import { types, db, App, middlewares } from "@duneanalytics/sim-idx"; // Import schema to ensure it's registered
 
 const app = App.create();
@@ -10,7 +10,7 @@ app.get("/*", async (c) => {
     const result = await db
       .client(c)
       .select()
-      .from(burn)
+      .from(uniswapV2PairBurn)
       .limit(5);
 
     return Response.json({

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-struct UniswapV2FactoryPairCreated {
+struct UniswapV2FactoryPairCreatedData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -12,7 +12,7 @@ struct UniswapV2FactoryPairCreated {
     uint256 allPairsLength;
 }
 
-struct UniswapV2PairSync {
+struct UniswapV2PairSyncData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -21,7 +21,7 @@ struct UniswapV2PairSync {
     uint112 reserve1;
 }
 
-struct UniswapV2PairSwap {
+struct UniswapV2PairSwapData {
     bytes32 txHash;
     address txFrom;
     address txTo;
@@ -36,7 +36,7 @@ struct UniswapV2PairSwap {
     address to;
 }
 
-struct UniswapV2PairMint {
+struct UniswapV2PairMintData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -46,7 +46,7 @@ struct UniswapV2PairMint {
     uint256 amount1;
 }
 
-struct UniswapV2PairBurn {
+struct UniswapV2PairBurnData {
     bytes32 txHash;
     address caller;
     address contractAddress;

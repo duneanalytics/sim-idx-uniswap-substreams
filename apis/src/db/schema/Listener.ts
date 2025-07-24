@@ -3,7 +3,93 @@ import { pgEnum, pgTable as table } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 import { db, types } from "@duneanalytics/sim-idx";
 
-export const burn = table("burn", {
+export const uniswapV2FactoryPairCreated = table("uniswap_v2_factory_pair_created", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  token0: db.address('token0'),
+  token1: db.address('token1'),
+  pair: db.address('pair'),
+  allPairsLength: db.uint256('all_pairs_length'),
+})
+
+export const uniswapV2PairBurn = table("uniswap_v2_pair_burn", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+  to: db.address('to'),
+})
+
+export const uniswapV2PairMint = table("uniswap_v2_pair_mint", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+})
+
+export const uniswapV2PairSwap = table("uniswap_v2_pair_swap", {
+  txHash: db.bytes32('tx_hash'),
+  txFrom: db.address('tx_from'),
+  txTo: db.address('tx_to'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  sender: db.address('sender'),
+  amount0In: db.uint256('amount0_in'),
+  amount1In: db.uint256('amount1_in'),
+  amount0Out: db.uint256('amount0_out'),
+  amount1Out: db.uint256('amount1_out'),
+  to: db.address('to'),
+})
+
+export const uniswapV2PairSync = table("uniswap_v2_pair_sync", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  reserve0: db.uint112('reserve0'),
+  reserve1: db.uint112('reserve1'),
+})
+
+export const uniswapV3FactoryFeeAmountEnabled = table("uniswap_v3_factory_fee_amount_enabled", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  fee: db.uint24('fee'),
+  tickSpacing: db.int24('tick_spacing'),
+})
+
+export const uniswapV3FactoryOwnerChanged = table("uniswap_v3_factory_owner_changed", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  oldOwner: db.address('old_owner'),
+  newOwner: db.address('new_owner'),
+})
+
+export const uniswapV3FactoryPoolCreated = table("uniswap_v3_factory_pool_created", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  token0: db.address('token0'),
+  token1: db.address('token1'),
+  fee: db.uint24('fee'),
+  tickSpacing: db.int24('tick_spacing'),
+  pool: db.address('pool'),
+})
+
+export const uniswapV3PoolBurn = table("uniswap_v3_pool_burn", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -16,7 +102,7 @@ export const burn = table("burn", {
   amount1: db.uint256('amount1'),
 })
 
-export const collect = table("collect", {
+export const uniswapV3PoolCollect = table("uniswap_v3_pool_collect", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -29,7 +115,7 @@ export const collect = table("collect", {
   amount1: db.uint128('amount1'),
 })
 
-export const collectProtocol = table("collect_protocol", {
+export const uniswapV3PoolCollectProtocol = table("uniswap_v3_pool_collect_protocol", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -40,16 +126,7 @@ export const collectProtocol = table("collect_protocol", {
   amount1: db.uint128('amount1'),
 })
 
-export const feeAmountEnabled = table("fee_amount_enabled", {
-  txHash: db.bytes32('tx_hash'),
-  caller: db.address('caller'),
-  contractAddress: db.address('contract_address'),
-  ordinal: db.uint64('ordinal'),
-  fee: db.uint24('fee'),
-  tickSpacing: db.int24('tick_spacing'),
-})
-
-export const flash = table("flash", {
+export const uniswapV3PoolFlash = table("uniswap_v3_pool_flash", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -62,7 +139,7 @@ export const flash = table("flash", {
   paid1: db.uint256('paid1'),
 })
 
-export const increaseObservationCardinalityNext = table("increase_observation_cardinality_next", {
+export const uniswapV3PoolIncreaseObservationCardinalityNext = table("uniswap_v3_pool_increase_observation_cardinality_next", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -71,7 +148,7 @@ export const increaseObservationCardinalityNext = table("increase_observation_ca
   observationCardinalityNextNew: db.uint16('observation_cardinality_next_new'),
 })
 
-export const initialize = table("initialize", {
+export const uniswapV3PoolInitialize = table("uniswap_v3_pool_initialize", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -80,7 +157,7 @@ export const initialize = table("initialize", {
   tick: db.int24('tick'),
 })
 
-export const mint = table("mint", {
+export const uniswapV3PoolMint = table("uniswap_v3_pool_mint", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -94,28 +171,7 @@ export const mint = table("mint", {
   amount1: db.uint256('amount1'),
 })
 
-export const ownerChanged = table("owner_changed", {
-  txHash: db.bytes32('tx_hash'),
-  caller: db.address('caller'),
-  contractAddress: db.address('contract_address'),
-  ordinal: db.uint64('ordinal'),
-  oldOwner: db.address('old_owner'),
-  newOwner: db.address('new_owner'),
-})
-
-export const poolCreated = table("pool_created", {
-  txHash: db.bytes32('tx_hash'),
-  caller: db.address('caller'),
-  contractAddress: db.address('contract_address'),
-  ordinal: db.uint64('ordinal'),
-  token0: db.address('token0'),
-  token1: db.address('token1'),
-  fee: db.uint24('fee'),
-  tickSpacing: db.int24('tick_spacing'),
-  pool: db.address('pool'),
-})
-
-export const setFeeProtocol = table("set_fee_protocol", {
+export const uniswapV3PoolSetFeeProtocol = table("uniswap_v3_pool_set_fee_protocol", {
   txHash: db.bytes32('tx_hash'),
   caller: db.address('caller'),
   contractAddress: db.address('contract_address'),
@@ -126,7 +182,7 @@ export const setFeeProtocol = table("set_fee_protocol", {
   feeProtocol1New: db.uint8('fee_protocol1_new'),
 })
 
-export const swap = table("swap", {
+export const uniswapV3PoolSwap = table("uniswap_v3_pool_swap", {
   txHash: db.bytes32('tx_hash'),
   txFrom: db.address('tx_from'),
   txTo: db.address('tx_to'),
@@ -140,4 +196,77 @@ export const swap = table("swap", {
   sqrtPriceX96: db.uint160('sqrt_price_x96'),
   liquidity: db.uint128('liquidity'),
   tick: db.int24('tick'),
+})
+
+export const uniswapV4Donate = table("uniswap_v4_donate", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  id: db.bytes32('id'),
+  sender: db.address('sender'),
+  amount0: db.uint256('amount0'),
+  amount1: db.uint256('amount1'),
+})
+
+export const uniswapV4Initialize = table("uniswap_v4_initialize", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  id: db.bytes32('id'),
+  currency0: db.address('currency0'),
+  currency1: db.address('currency1'),
+  fee: db.uint24('fee'),
+  tickSpacing: db.int24('tick_spacing'),
+  hooks: db.address('hooks'),
+  sqrtPriceX96: db.uint160('sqrt_price_x96'),
+  tick: db.int24('tick'),
+})
+
+export const uniswapV4ModifyLiquidity = table("uniswap_v4_modify_liquidity", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  id: db.bytes32('id'),
+  sender: db.address('sender'),
+  tickLower: db.int24('tick_lower'),
+  tickUpper: db.int24('tick_upper'),
+  liquidityDelta: db.int256('liquidity_delta'),
+  salt: db.bytes32('salt'),
+})
+
+export const uniswapV4ProtocolFeeControllerUpdated = table("uniswap_v4_protocol_fee_controller_updated", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  protocolFeeController: db.address('protocol_fee_controller'),
+})
+
+export const uniswapV4ProtocolFeeUpdated = table("uniswap_v4_protocol_fee_updated", {
+  txHash: db.bytes32('tx_hash'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  id: db.bytes32('id'),
+  protocolFee: db.uint24('protocol_fee'),
+})
+
+export const uniswapV4Swap = table("uniswap_v4_swap", {
+  txHash: db.bytes32('tx_hash'),
+  txFrom: db.address('tx_from'),
+  txTo: db.address('tx_to'),
+  caller: db.address('caller'),
+  contractAddress: db.address('contract_address'),
+  ordinal: db.uint64('ordinal'),
+  id: db.bytes32('id'),
+  sender: db.address('sender'),
+  amount0: db.int128('amount0'),
+  amount1: db.int128('amount1'),
+  sqrtPriceX96: db.uint160('sqrt_price_x96'),
+  liquidity: db.uint128('liquidity'),
+  tick: db.int24('tick'),
+  fee: db.uint24('fee'),
 })

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-struct UniswapV3FactoryPoolCreated {
+struct UniswapV3FactoryPoolCreatedData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -13,7 +13,7 @@ struct UniswapV3FactoryPoolCreated {
     address pool;
 }
 
-struct UniswapV3FactoryOwnerChanged {
+struct UniswapV3FactoryOwnerChangedData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -22,7 +22,7 @@ struct UniswapV3FactoryOwnerChanged {
     address newOwner;
 }
 
-struct UniswapV3FactoryFeeAmountEnabled {
+struct UniswapV3FactoryFeeAmountEnabledData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -31,7 +31,7 @@ struct UniswapV3FactoryFeeAmountEnabled {
     int24 tickSpacing;
 }
 
-struct UniswapV3PoolInitialize {
+struct UniswapV3PoolInitializeData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -40,7 +40,7 @@ struct UniswapV3PoolInitialize {
     int24 tick;
 }
 
-struct UniswapV3PoolMint {
+struct UniswapV3PoolMintData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -54,7 +54,7 @@ struct UniswapV3PoolMint {
     uint256 amount1;
 }
 
-struct UniswapV3PoolBurn {
+struct UniswapV3PoolBurnData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -67,7 +67,7 @@ struct UniswapV3PoolBurn {
     uint256 amount1;
 }
 
-struct UniswapV3PoolSwap {
+struct UniswapV3PoolSwapData {
     bytes32 txHash;
     address txFrom;
     address txTo;
@@ -83,7 +83,7 @@ struct UniswapV3PoolSwap {
     int24 tick;
 }
 
-struct UniswapV3PoolCollect {
+struct UniswapV3PoolCollectData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -96,7 +96,7 @@ struct UniswapV3PoolCollect {
     uint128 amount1;
 }
 
-struct UniswapV3PoolFlash {
+struct UniswapV3PoolFlashData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -109,7 +109,7 @@ struct UniswapV3PoolFlash {
     uint256 paid1;
 }
 
-struct UniswapV3PoolIncreaseObservationCardinalityNext {
+struct UniswapV3PoolIncreaseObservationCardinalityNextData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -118,7 +118,7 @@ struct UniswapV3PoolIncreaseObservationCardinalityNext {
     uint16 observationCardinalityNextNew;
 }
 
-struct UniswapV3PoolSetFeeProtocol {
+struct UniswapV3PoolSetFeeProtocolData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -129,7 +129,7 @@ struct UniswapV3PoolSetFeeProtocol {
     uint8 feeProtocol1New;
 }
 
-struct UniswapV3PoolCollectProtocol {
+struct UniswapV3PoolCollectProtocolData {
     bytes32 txHash;
     address caller;
     address contractAddress;

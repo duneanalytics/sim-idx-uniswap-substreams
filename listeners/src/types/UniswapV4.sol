@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-struct UniswapV4Initialize {
+struct UniswapV4InitializeData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -16,7 +16,7 @@ struct UniswapV4Initialize {
     int24 tick;
 }
 
-struct UniswapV4Swap {
+struct UniswapV4SwapData {
     bytes32 txHash;
     address txFrom;
     address txTo;
@@ -33,7 +33,7 @@ struct UniswapV4Swap {
     uint24 fee;
 }
 
-struct UniswapV4ModifyLiquidity {
+struct UniswapV4ModifyLiquidityData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -46,7 +46,7 @@ struct UniswapV4ModifyLiquidity {
     bytes32 salt;
 }
 
-struct UniswapV4Donate {
+struct UniswapV4DonateData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -57,7 +57,7 @@ struct UniswapV4Donate {
     uint256 amount1;
 }
 
-struct UniswapV4ProtocolFeeControllerUpdated {
+struct UniswapV4ProtocolFeeControllerUpdatedData {
     bytes32 txHash;
     address caller;
     address contractAddress;
@@ -65,7 +65,7 @@ struct UniswapV4ProtocolFeeControllerUpdated {
     address protocolFeeController;
 }
 
-struct UniswapV4ProtocolFeeUpdated {
+struct UniswapV4ProtocolFeeUpdatedData {
     bytes32 txHash;
     address caller;
     address contractAddress;
