@@ -25,9 +25,9 @@ contract PoolManagerListener is
         override
     {
         UniswapV4InitializeData memory eventData = UniswapV4InitializeData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             id: params.id,
             currency0: params.currency0,
@@ -47,11 +47,11 @@ contract PoolManagerListener is
         override
     {
         UniswapV4SwapData memory eventData = UniswapV4SwapData({
-            txHash: ctx.txn.hash,
+            txHash: ctx.txn.hash(),
             txFrom: tx.origin,
             txTo: address(0),
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             id: params.id,
             sender: params.sender,
@@ -71,9 +71,9 @@ contract PoolManagerListener is
         PoolManager$ModifyLiquidityEventParams memory params
     ) external override {
         UniswapV4ModifyLiquidityData memory eventData = UniswapV4ModifyLiquidityData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             id: params.id,
             sender: params.sender,
@@ -91,9 +91,9 @@ contract PoolManagerListener is
         override
     {
         UniswapV4DonateData memory eventData = UniswapV4DonateData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             id: params.id,
             sender: params.sender,
@@ -109,9 +109,9 @@ contract PoolManagerListener is
         PoolManager$ProtocolFeeControllerUpdatedEventParams memory params
     ) external override {
         UniswapV4ProtocolFeeControllerUpdatedData memory eventData = UniswapV4ProtocolFeeControllerUpdatedData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             protocolFeeController: params.protocolFeeController
         });
@@ -124,9 +124,9 @@ contract PoolManagerListener is
         PoolManager$ProtocolFeeUpdatedEventParams memory params
     ) external override {
         UniswapV4ProtocolFeeUpdatedData memory eventData = UniswapV4ProtocolFeeUpdatedData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             id: params.id,
             protocolFee: params.protocolFee
