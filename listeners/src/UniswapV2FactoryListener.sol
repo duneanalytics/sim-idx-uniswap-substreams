@@ -12,9 +12,9 @@ contract UniswapV2FactoryListener is UniswapV2Factory$OnPairCreatedEvent {
         UniswapV2Factory$PairCreatedEventParams memory params
     ) external override {
         UniswapV2FactoryPairCreatedData memory eventData = UniswapV2FactoryPairCreatedData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             token0: params.token0,
             token1: params.token1,

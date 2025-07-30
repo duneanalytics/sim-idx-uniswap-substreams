@@ -18,9 +18,9 @@ contract UniswapV3FactoryListener is
         UniswapV3Factory$PoolCreatedEventParams memory params
     ) external override {
         UniswapV3FactoryPoolCreatedData memory eventData = UniswapV3FactoryPoolCreatedData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             token0: params.token0,
             token1: params.token1,
@@ -37,9 +37,9 @@ contract UniswapV3FactoryListener is
         UniswapV3Factory$OwnerChangedEventParams memory params
     ) external override {
         UniswapV3FactoryOwnerChangedData memory eventData = UniswapV3FactoryOwnerChangedData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             oldOwner: params.oldOwner,
             newOwner: params.newOwner
@@ -53,9 +53,9 @@ contract UniswapV3FactoryListener is
         UniswapV3Factory$FeeAmountEnabledEventParams memory params
     ) external override {
         UniswapV3FactoryFeeAmountEnabledData memory eventData = UniswapV3FactoryFeeAmountEnabledData({
-            txHash: ctx.txn.hash,
-            caller: ctx.txn.call.callee,
-            contractAddress: ctx.txn.call.callee,
+            txHash: ctx.txn.hash(),
+            caller: ctx.txn.call.callee(),
+            contractAddress: ctx.txn.call.callee(),
             ordinal: 0,
             fee: params.fee,
             tickSpacing: params.tickSpacing
